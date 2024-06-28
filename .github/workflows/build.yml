@@ -102,7 +102,7 @@ jobs:
         run: rm -rf *
 
   e2e-test:
-    runs-on: namespace-profile-default
+    runs-on: namespace-profile-runner-in-builder
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
