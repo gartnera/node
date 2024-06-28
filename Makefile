@@ -225,6 +225,9 @@ stop-localnet:
 zetanode:
 	@echo "Building zetanode"
 	$(DOCKER) build -t zetanode --target latest-runtime -f ./Dockerfile-localnet .
+	@echo "--> Image list"
+	docker image ls
+	@echo "--> Building orchestrator"
 	$(DOCKER) build -t orchestrator -f contrib/localnet/orchestrator/Dockerfile.fastbuild .
 .PHONY: zetanode
 
