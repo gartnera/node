@@ -224,8 +224,8 @@ stop-localnet:
 
 zetanode:
 	@echo "Building zetanode"
-	$(DOCKER) build -t zetanode --target latest-runtime -f ./Dockerfile-localnet .
-	$(DOCKER) build -t orchestrator -f contrib/localnet/orchestrator/Dockerfile.fastbuild .
+	$(DOCKER) buildx build -t zetanode --target latest-runtime -f ./Dockerfile-localnet .
+	$(DOCKER) buildx build -t orchestrator -f contrib/localnet/orchestrator/Dockerfile.fastbuild .
 .PHONY: zetanode
 
 install-zetae2e: go.sum
