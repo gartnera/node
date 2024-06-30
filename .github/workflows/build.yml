@@ -142,6 +142,7 @@ jobs:
           file: ./Dockerfile-localnet
           push: false
           load: true
+          target: latest-runtime
           tags: zetanode
           cache-from: type=gha
           cache-to: type=gha,mode=max
