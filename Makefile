@@ -224,8 +224,8 @@ stop-localnet:
 
 zetanode:
 	@echo "Building zetanode"
-	$(DOCKER) build -t zetanode --target latest-runtime -f ./Dockerfile-localnet .
-	$(DOCKER) build -t orchestrator -f contrib/localnet/orchestrator/Dockerfile.fastbuild .
+	$(DOCKER) buildx build -t zetanode --target latest-runtime -f ./Dockerfile-localnet .
+	$(DOCKER) buildx build --builder default -t orchestrator -f contrib/localnet/orchestrator/Dockerfile.fastbuild .
 .PHONY: zetanode
 
 install-zetae2e: go.sum
@@ -264,8 +264,8 @@ start-stress-test: zetanode
 
 zetanode-upgrade: zetanode
 	@echo "Building zetanode-upgrade"
-	$(DOCKER) build -t zetanode:old -f Dockerfile-localnet --target old-runtime --build-arg OLD_VERSION='release/v17' .
-	$(DOCKER) build -t orchestrator -f contrib/localnet/orchestrator/Dockerfile.fastbuild .
+	$(DOCKER) buildx build -t zetanode:old -f Dockerfile-localnet --target old-runtime --build-arg OLD_VERSION='release/v17' .
+	$(DOCKER) buildx build --builder default -t orchestrator -f contrib/localnet/orchestrator/Dockerfile.fastbuild .
 .PHONY: zetanode-upgrade
 
 start-upgrade-test: zetanode-upgrade
