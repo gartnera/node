@@ -102,8 +102,10 @@ jobs:
         run: rm -rf *
 
   e2e-test:
-    runs-on: namespace-profile-default
+    runs-on: ubuntu-20.04
     timeout-minutes: 25
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
 
@@ -131,6 +133,14 @@ jobs:
       - run: |
           echo "github.repository: ${{ github.repository }}"
           echo "github.event.pull_request.head.repo.full_name: ${{ github.event.pull_request.head.repo.full_name }}"
+
+      - name: Install and configure Namespace CLI
+        uses: namespacelabs/nscloud-setup@v0
+
+      - name: Configure Namespace powered Buildx
+        uses: namespacelabs/nscloud-setup-buildx-action@v0
+
+      - run: docker buildx ls
 
       - name: Start Test
         run: make start-e2e-test
