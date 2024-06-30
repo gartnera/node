@@ -228,7 +228,7 @@ zetanode:
 	@echo "--> Image list"
 	docker image ls
 	@echo "--> Building orchestrator"
-	$(DOCKER) build -t orchestrator -f contrib/localnet/orchestrator/Dockerfile.fastbuild .
+	$(DOCKER) buildx build --builder default -t orchestrator -f contrib/localnet/orchestrator/Dockerfile.fastbuild .
 .PHONY: zetanode
 
 install-zetae2e: go.sum
