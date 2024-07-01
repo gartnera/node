@@ -153,6 +153,7 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:latest
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache
           cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache
+          target: latest-runtime
 
       - name: Start Test
         run: make start-e2e-test
