@@ -131,8 +131,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           file: ./Dockerfile-localnet
-          push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          push: false
+          tags: zetanode:latest
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache
           cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache
           target: latest-runtime
