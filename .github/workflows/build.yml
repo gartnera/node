@@ -130,14 +130,15 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         env:
-          CACHE_CONFIG: "type=registry,ref=ghcr.io/${{ github.repository }}:buildcache"
+          CACHE_FROM_CONFIG: "type=registry,ref=ghcr.io/${{ github.repository }}:buildcache"
+          CACHE_TO_CONFIG: "type=registry,ref=ghcr.io/${{ github.repository }}:buildcache,mode=max"
         with:
           context: .
           file: ./Dockerfile-localnet
           push: false
           tags: zetanode:latest
-          cache-from: ${{ env.CACHE_CONFIG }}
-          cache-to: ${{ env.CACHE_CONFIG }},mode=max
+          cache-from: ${{ env.CACHE_FROM_CONFIG }}
+          cache-to: ${{ github.event_name == 'push' && env.CACHE_TO_CONFIG || '' }}
           target: latest-runtime
 
       - name: Start Test
