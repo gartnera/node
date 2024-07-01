@@ -137,7 +137,7 @@ jobs:
           push: false
           tags: zetanode:latest
           cache-from: ${{ env.CACHE_CONFIG }}
-          cache-to: ${{ github.event_name == 'push' && env.CACHE_CONFIG || '' }}
+          cache-to: ${{ env.CACHE_CONFIG }},mode=max
           target: latest-runtime
 
       - name: Start Test
