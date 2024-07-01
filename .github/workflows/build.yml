@@ -127,6 +127,23 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: restore-go-cache
+        uses: actions/cache@v3
+        id: restore-go-cache
+        with:
+          path: |
+            go-cache
+          key: cache-${{ hashFiles('go.sum') }}
+
+      - name: inject cache into docker
+        uses: reproducible-containers/buildkit-cache-dance@v3.1.2
+        with:
+          cache-map: |
+            {
+              "go-cache": "/root/.cache/go-build"
+            }
+          skip-extraction: ${{ steps.restore-go-cache.outputs.cache-hit }}
+
       - name: Build and push
         uses: docker/build-push-action@v6
         env:
